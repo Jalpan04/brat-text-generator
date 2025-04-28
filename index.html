@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Brat Font Generator</title>
+  <style>
+    body {
+      background: #fff;
+      color: #000;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .text-display {
+      width: 400px;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+
+      padding: 20px;
+      box-sizing: border-box;
+      position: relative;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .brat-text {
+      font-family: "Arial Narrow", Arial, sans-serif;
+      letter-spacing: 0px;
+      transform: scaleX(0.95);
+      filter: blur(2px) contrast(120%) saturate(120%);
+      image-rendering: pixelated;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 10px;
+      row-gap: 10px;
+      font-weight: normal;
+      word-spacing: 5px;
+      line-height: 0.2;
+      width: 100%;
+      height: 100%;
+      font-size: 4rem; /* default font size */
+      overflow-wrap: break-word;
+    }
+
+    .brat-text div {
+      word-wrap: break-word;
+      padding: 5px 0;
+    }
+
+    input[type="text"] {
+
+      width: 500px;
+      max-width: 90%;
+      font-size: 1.2rem;
+      border-radius: 25px;
+      border: 1px solid #ddd;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .screenshot-button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      text-align: center;
+      background: #000;
+      color: #fff;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .screenshot-button:hover {
+      background: #333;
+    }
+
+    @media (max-width: 600px) {
+      .text-display {
+        width: 90%;
+        height: 300px;
+      }
+
+      .brat-text {
+        font-size: 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="text-display">
+  <div class="brat-text" id="bratText">
+    <div>brat</div><div>and</div><div>it's</div>
+    <div>the</div><div>same</div><div>but</div>
+    <div>there's</div><div>three</div>
+    <div>more</div><div>songs</div>
+    <div>so</div><div>it's</div><div>not</div>
+  </div>
+</div>
+
+<input type="text" id="userInput" placeholder="brat and it's completely different but also still brat">
+
+<div class="screenshot-button">
+  Take A Screenshot To Save!
+</div>
+
+<script>
+  const input = document.getElementById('userInput');
+  const bratText = document.getElementById('bratText');
+  const textDisplay = document.querySelector('.text-display');
+
+  input.addEventListener('input', () => {
+    bratText.innerHTML = '';
+
+    const text = input.value || "brat and it's completely different but also still brat";
+    const words = text.trim().split(/\s+/);
+
+    words.forEach(word => {
+      const wordElement = document.createElement('div');
+      wordElement.textContent = word;
+      bratText.appendChild(wordElement);
+    });
+
+    adjustFontSize();
+  });
+
+  function adjustFontSize() {
+    const maxWidth = textDisplay.offsetWidth;
+    const maxHeight = textDisplay.offsetHeight;
+    let fontSize = 10; // Start BIG at 10rem
+
+    bratText.style.fontSize = `${fontSize}rem`;
+
+    // Shrink font size until it fits
+    while ((bratText.scrollHeight > maxHeight || bratText.scrollWidth > maxWidth) && fontSize > 1) {
+      fontSize -= 0.2;
+      bratText.style.fontSize = `${fontSize}rem`;
+    }
+  }
+
+  adjustFontSize();
+</script>
+
+
+</body>
+</html>
