@@ -60,6 +60,24 @@
       z-index: 50;
     }
 
+    #saveButton {
+      height: 50px;
+      font-size: 16px;
+      border: none;
+      border-radius: 16px;
+      padding: 0 20px;
+      margin-left: 10px;
+      cursor: pointer;
+      background-color: #fff;
+      border: 1px solid #d1d1d1;
+      color: #000;
+      font-family: Arial, sans-serif;
+    }
+
+    #saveButton:hover {
+      filter: blur(1px);
+    }
+
     #textOverlay {
       position: absolute;
       top: 50%;
@@ -137,6 +155,7 @@
           <div id="textOverlay"></div>
         </div>
         <input type="text" id="textInput" value="brat and it’s completely different but also still brat">
+        <button id="saveButton">Save</button>
         <div class="themeSelector">
           <div id="toggleButtonBlack" onclick="setupTheme('black')"></div>
           <div id="toggleButtonWhite" onclick="setupTheme('white')"></div>
@@ -286,12 +305,14 @@
     textFit(textOverlay, { maxFontSize: 200 }); /* Match maxFontSize with defaultSettings */
   });
 
-  memeContainer.addEventListener('click', function() {
+  document.getElementById('saveButton').addEventListener('click', function() {
     html2canvas(memeContainer, {
       backgroundColor: document.body.classList.contains('white') ? '#fff' : '#fff'
     }).then(originalCanvas => {
       const width = originalCanvas.width;
       const height = originalCanvas.height;
+
+
 
       // Create a new canvas to apply blur
       const blurredCanvas = document.createElement('canvas');
