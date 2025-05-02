@@ -1,155 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Brat Font Generator</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Charli XCX Brat generator">
+  <meta name="keywords" content="Charli XCX Brat generator">
+  <link rel="icon" href="images/favicon_96.jpg" type="image/jpeg">
+  <title>Brat Generator</title>
   <style>
-    body {
-      background: #fff;
-      color: #000;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 20px;
+    @font-face {
+      font-family: 'timesregular';
+
+      font-weight: normal;
+      font-style: normal;
     }
 
-    .text-display {
-      width: 400px;
-      height: 400px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
+    @font-face {
+      font-family: 'arial_narrowregular';
+      src: url('https://www.bratgenerator.com/sites/g/files/g2000017981/files/2024-03/arial_narrow-webfont.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
 
-      padding: 20px;
-      box-sizing: border-box;
-      position: relative;
-      background: #fff;
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    #page, #main-wrapper {
       overflow: hidden;
     }
 
-    .brat-text {
-      font-family: "Arial Narrow", Arial, sans-serif;
-      letter-spacing: 0px;
-      transform: scaleX(0.95);
-      filter: blur(2px) contrast(120%) saturate(120%);
-      image-rendering: pixelated;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      column-gap: 10px;
-      row-gap: 10px;
-      font-weight: normal;
-      word-spacing: 5px;
-      line-height: 0.2;
+    #memeContainer {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
-      height: 100%;
-      font-size: 4rem; /* default font size */
-      overflow-wrap: break-word;
-    }
-
-    .brat-text div {
-      word-wrap: break-word;
-      padding: 5px 0;
-    }
-
-    input[type="text"] {
-
-      width: 500px;
-      max-width: 90%;
-      font-size: 1.2rem;
-      border-radius: 25px;
-      border: 1px solid #ddd;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-
-    .screenshot-button {
-      padding: 10px 20px;
-      font-size: 1rem;
-      text-align: center;
-      background: #000;
-      color: #fff;
-      border-radius: 20px;
+      height: 80vh;
       cursor: pointer;
-      transition: background 0.3s ease;
-      margin-top: 10px;
     }
 
-    .screenshot-button:hover {
-      background: #333;
+    #textInput {
+      margin: 14px auto;
+      padding: 0;
+      font-size: 18px;
+      border: 1px solid #d1d1d1;
+      border-radius: 16px;
+      max-width: 450px;
+      width: 90%;
+      height: 50px;
+      line-height: 50px;
+      outline: none;
+      font-family: 'timesregular', serif;
+      text-align: center;
+      z-index: 50;
     }
 
-    @media (max-width: 600px) {
-      .text-display {
-        width: 90%;
-        height: 300px;
-      }
+    #textOverlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      color: #000;
+      font-family: 'arial_narrowregular', "Arial Narrow", sans-serif;
+      font-size: 150px; /* Larger base font size */
+      width: 600px; /* Wider to allow larger text scaling */
+      height: 400px; /* Taller to match original proportions */
+      text-align: justify;
+      text-align-last: justify;
+      padding: 20px;
+      box-sizing: border-box;
+      filter: blur(2px);
+      line-height: 1; /* Reduced line spacing */
+    }
 
-      .brat-text {
-        font-size: 3rem;
+    body.black #textOverlay {
+      text-align: left;
+      text-align-last: left;
+    }
+
+    body.black #textOverlay .textFitted {
+      transform: scaleX(-1);
+      text-align: left;
+      float: right;
+    }
+
+    .themeSelector {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 51;
+    }
+
+    .themeSelector > div {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    #toggleButtonWhite { background-color: #fff; }
+    #toggleButtonBlack { background-color: #000; border: 2px solid #000; }
+
+    body.white #toggleButtonWhite, body.black #toggleButtonBlack {
+      border: 2px solid #000;
+    }
+
+    @media (max-width: 1023px) {
+      #textOverlay {
+        font-size: 120px;
+        width: 400px;
+        height: 400px;
       }
+      body.white #textOverlay, body.black #textOverlay {
+        font-size: 100px;
+        width: 400px;
+        height: 400px;
+        padding: 0;
+      }
+      #memeContainer { height: 85vh; margin-top: 10%; }
     }
   </style>
 </head>
-<body>
-
-<div class="text-display">
-  <div class="brat-text" id="bratText">
-    <div>brat</div><div>and</div><div>it's</div>
-    <div>the</div><div>same</div><div>but</div>
-    <div>there's</div><div>three</div>
-    <div>more</div><div>songs</div>
-    <div>so</div><div>it's</div><div>not</div>
+<body class="white">
+<div id="page-wrapper">
+  <div id="page">
+    <div id="main-wrapper">
+      <main id="content">
+        <div id="memeContainer">
+          <div id="textOverlay"></div>
+        </div>
+        <input type="text" id="textInput" value="brat and it’s completely different but also still brat">
+        <div class="themeSelector">
+          <div id="toggleButtonBlack" onclick="setupTheme('black')"></div>
+          <div id="toggleButtonWhite" onclick="setupTheme('white')"></div>
+        </div>
+      </main>
+    </div>
   </div>
 </div>
-
-<input type="text" id="userInput" placeholder="brat and it's completely different but also still brat">
-
-<div class="screenshot-button">
-  Take A Screenshot To Save!
-</div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
-  const input = document.getElementById('userInput');
-  const bratText = document.getElementById('bratText');
-  const textDisplay = document.querySelector('.text-display');
+  (function() {
+    var defaultSettings = {
+      alignVert: false,
+      alignHoriz: false,
+      multiLine: true,
+      detectMultiLine: true,
+      minFontSize: 8,
+      maxFontSize: 200, /* Increased to allow larger text */
+      reProcess: true,
+      widthOnly: false,
+      alignVertWithFlexbox: false
+    };
 
-  input.addEventListener('input', () => {
-    bratText.innerHTML = '';
+    window.textFit = function(els, options) {
+      if (!options) options = {};
+      var settings = {};
+      for (var key in defaultSettings) {
+        settings[key] = options.hasOwnProperty(key) ? options[key] : defaultSettings[key];
+      }
 
-    const text = input.value || "brat and it's completely different but also still brat";
-    const words = text.trim().split(/\s+/);
+      if (typeof els.toArray === "function") els = els.toArray();
+      var elType = Object.prototype.toString.call(els);
+      if (elType !== '[object Array]' && elType !== '[object NodeList]' && elType !== '[object HTMLCollection]') {
+        els = [els];
+      }
 
-    words.forEach(word => {
-      const wordElement = document.createElement('div');
-      wordElement.textContent = word;
-      bratText.appendChild(wordElement);
-    });
+      for (var i = 0; i < els.length; i++) {
+        processItem(els[i], settings);
+      }
+    };
 
-    adjustFontSize();
+    function processItem(el, settings) {
+      if (!isElement(el) || (!settings.reProcess && el.getAttribute('textFitted'))) return false;
+      if (!settings.reProcess) el.setAttribute('textFitted', 1);
+
+      var innerSpan, originalHeight, originalHTML, originalWidth;
+      originalHTML = el.innerHTML;
+      originalWidth = innerWidth(el);
+      originalHeight = innerHeight(el);
+
+      if (!originalWidth || (!settings.widthOnly && !originalHeight)) {
+        console.warn('textFit: Element must have static width and height. Skipping:', el);
+        return false;
+      }
+
+      if (originalHTML.indexOf('textFitted') === -1) {
+        innerSpan = document.createElement('span');
+        innerSpan.className = 'textFitted';
+        innerSpan.style.display = 'inline-block';
+        innerSpan.innerHTML = originalHTML;
+        el.innerHTML = '';
+        el.appendChild(innerSpan);
+      } else {
+        innerSpan = el.querySelector('span.textFitted');
+        if (hasClass(innerSpan, 'textFitAlignVert')) {
+          innerSpan.className = innerSpan.className.replace('textFitAlignVert', '');
+          innerSpan.style.height = '';
+          el.className.replace('textFitAlignVertFlex', '');
+        }
+      }
+
+      if (settings.alignHoriz) {
+        el.style.textAlign = innerSpan.style.textAlign = 'center';
+      }
+
+      var multiLine = settings.multiLine;
+      if (settings.detectMultiLine && !multiLine && innerSpan.getBoundingClientRect().height >= parseInt(window.getComputedStyle(innerSpan)['font-size'], 10) * 2) {
+        multiLine = true;
+      }
+
+      if (!multiLine) el.style.whiteSpace = 'nowrap';
+
+      var low = settings.minFontSize, high = settings.maxFontSize, size = low;
+      while (low <= high) {
+        var mid = (high + low) >> 1;
+        innerSpan.style.fontSize = mid + 'px';
+        var rect = innerSpan.getBoundingClientRect();
+        if (rect.width <= originalWidth && (settings.widthOnly || rect.height <= originalHeight)) {
+          size = mid;
+          low = mid + 1;
+        } else {
+          high = mid - 1;
+        }
+      }
+      if (innerSpan.style.fontSize != size + 'px') innerSpan.style.fontSize = size + 'px';
+
+      if (settings.alignVert) {
+        addStyleSheet();
+        var height = innerSpan.scrollHeight;
+        if (window.getComputedStyle(el).position === "static") el.style.position = 'relative';
+        if (!hasClass(innerSpan, "textFitAlignVert")) innerSpan.className += " textFitAlignVert";
+        innerSpan.style.height = height + "px";
+        if (settings.alignVertWithFlexbox && !hasClass(el, "textFitAlignVertFlex")) el.className += " textFitAlignVertFlex";
+      }
+    }
+
+    function innerHeight(el) {
+      var style = window.getComputedStyle(el, null);
+      return el.getBoundingClientRect().height - parseInt(style.getPropertyValue('padding-top'), 10) - parseInt(style.getPropertyValue('padding-bottom'), 10);
+    }
+
+    function innerWidth(el) {
+      var style = window.getComputedStyle(el, null);
+      return el.getBoundingClientRect().width - parseInt(style.getPropertyValue('padding-left'), 10) - parseInt(style.getPropertyValue('padding-right'), 10);
+    }
+
+    function isElement(o) {
+      return (typeof HTMLElement === "object" ? o instanceof HTMLElement : o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName === "string");
+    }
+
+    function hasClass(element, cls) {
+      return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+    }
+
+    function addStyleSheet() {
+      if (document.getElementById("textFitStyleSheet")) return;
+      var style = [
+        ".textFitAlignVert{position: absolute;top: 0; right: 0; bottom: 0; left: 0;margin: auto;display: flex;justify-content: center;flex-direction: column;}",
+        ".textFitAlignVertFlex{display: flex;}",
+        ".textFitAlignVertFlex .textFitAlignVert{position: static;}"
+      ].join("");
+      var css = document.createElement("style");
+      css.type = "text/css";
+      css.id = "textFitStyleSheet";
+      css.innerHTML = style;
+      document.body.appendChild(css);
+    }
+  })();
+
+  const textInput = document.getElementById('textInput');
+  const textOverlay = document.getElementById('textOverlay');
+  const memeContainer = document.getElementById('memeContainer');
+
+  textInput.addEventListener('input', function() {
+    textOverlay.innerText = this.value;
+    textFit(textOverlay, { maxFontSize: 200 }); /* Match maxFontSize with defaultSettings */
   });
 
-  function adjustFontSize() {
-    const maxWidth = textDisplay.offsetWidth;
-    const maxHeight = textDisplay.offsetHeight;
-    let fontSize = 10; // Start BIG at 10rem
+  memeContainer.addEventListener('click', function() {
+    html2canvas(memeContainer, {
+      backgroundColor: document.body.classList.contains('white') ? '#fff' : '#fff'
+    }).then(canvas => {
+      const link = document.createElement('a');
+      link.download = 'brat_generator.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }).catch(err => {
+      console.error('Error capturing image:', err);
+    });
+  });
 
-    bratText.style.fontSize = `${fontSize}rem`;
-
-    // Shrink font size until it fits
-    while ((bratText.scrollHeight > maxHeight || bratText.scrollWidth > maxWidth) && fontSize > 1) {
-      fontSize -= 0.2;
-      bratText.style.fontSize = `${fontSize}rem`;
+  function setupTheme(color) {
+    var body = document.body;
+    textInput.value = "";
+    if (color === "black") {
+      body.classList.remove("white");
+      body.classList.add("black");
+      textInput.setAttribute("maxlength", "450");
+      textInput.value = "brat and it’s completely different but also still brat";
+      textOverlay.innerText = textInput.value;
+      textFit(textOverlay, { maxFontSize: 180 }); /* Slightly smaller for black theme */
+    } else {
+      body.classList.remove("black");
+      body.classList.add("white");
+      textInput.removeAttribute("maxlength");
+      textInput.value = "brat and it’s completely different but also still brat";
+      textOverlay.innerText = textInput.value;
+      textFit(textOverlay, { maxFontSize: 200 });
     }
   }
 
-  adjustFontSize();
+  // Initialize with the white theme
+  setupTheme('white');
 </script>
-
-
 </body>
 </html>
