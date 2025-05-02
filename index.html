@@ -289,14 +289,29 @@
   memeContainer.addEventListener('click', function() {
     html2canvas(memeContainer, {
       backgroundColor: document.body.classList.contains('white') ? '#fff' : '#fff'
-    }).then(canvas => {
+    }).then(originalCanvas => {
+      const width = originalCanvas.width;
+      const height = originalCanvas.height;
+
+      // Create a new canvas to apply blur
+      const blurredCanvas = document.createElement('canvas');
+      blurredCanvas.width = width;
+      blurredCanvas.height = height;
+      const ctx = blurredCanvas.getContext('2d');
+
+      // Apply blur filter
+      ctx.filter = 'blur(3px)'; // Adjust blur level here
+      ctx.drawImage(originalCanvas, 0, 0);
+
+      // Download the blurred image
       const link = document.createElement('a');
-      link.download = 'brat_generator.png';
-      link.href = canvas.toDataURL('image/png');
+      link.download = 'brat_generator_blurred.png';
+      link.href = blurredCanvas.toDataURL('image/png');
       link.click();
     }).catch(err => {
       console.error('Error capturing image:', err);
     });
+
   });
 
   function setupTheme(color) {
