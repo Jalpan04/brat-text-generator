@@ -26,7 +26,7 @@ A simple web application that generates text in the style of Charli XCX's "Brat"
 
 ## Demo
 
-Check out the live demo at [bratgenerator.com](https://bratgenerator.com)
+Check out the live demo at [link](https://jalpan04.github.io/brat-text-generator/)
 
 ## How to Use
 
