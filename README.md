@@ -28,7 +28,7 @@ A simple web application that generates text in the style of Charli XCX's "Brat"
 
 Check out the live demo at [link](https://jalpan04.github.io/brat-text-generator/)
 
-<img width="461" height="610" alt="Screenshot 2025-10-20 094928" src="https://github.com/user-attachments/assets/9a1d7693-5ed6-443a-9f53-87a33a153dcd" />
+<img width="461" height="505" alt="Screenshot 2025-10-20 094928" src="https://github.com/user-attachments/assets/cbd66b4a-1464-4c64-8322-5e0535f79987" />
 
 ## How to Use
 
