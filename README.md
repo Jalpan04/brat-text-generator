@@ -1,3 +1,5 @@
+![GitHub top language](https://img.shields.io/github/languages/top/Jalpan04/brat-text-generator) ![GitHub repo size](https://img.shields.io/github/repo-size/Jalpan04/brat-text-generator) [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](LICENSE)
+
 
 ░▒▓███████▓▒░░▒▓███████▓▒░ ░▒▓██████▓▒░▒▓████████▓▒░ 
 ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▒░     
